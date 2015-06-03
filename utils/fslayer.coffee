@@ -46,7 +46,8 @@ class FSLayer
     @getFileInfo(filepath, (stats) ->
       # file exists
       if stats
-        fs.readFile(filepath, 'binary', (error, data) ->
+        # for some reason binary is utf8??
+        fs.readFile(filepath, 'utf8', (error, data) ->
           throw error if error
           # stats.data = data
           callback(null, data)
@@ -56,12 +57,12 @@ class FSLayer
         callback(new Error("file does not exist"), null)
     )
 
-  updateFile: (filepath, contents) ->
+  updateFile: (filepath, content) ->
     filepath = @filepath filepath
     @getFileInfo(filepath, (stats) ->
       # file exists
       if stats
-        fs.writeFile(filepath, contents, (error) ->
+        fs.writeFile(filepath, content, (error) ->
           throw error if error
         )
       # doesn't exist
@@ -69,7 +70,7 @@ class FSLayer
         console.log 'file does not exist'
     )
 
-  deleteFile: () ->
+  # deleteFile: () ->
 
   listFiles: (filepath, callback) ->
     filepath = @filepath filepath
