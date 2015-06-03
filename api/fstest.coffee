@@ -12,10 +12,10 @@ testFSLayer = (res) ->
   fsl.readFile("helloworld.txt", (error, data) ->
     throw error if error
     console.log data
-    fsl.listFiles(".", (error, files) ->
-      throw error if error
-      console.log(files)
-    )
-    res.send(data)
+    #res.send(data)
   )
   
+  fsl.listFiles(".", (error, files) ->
+    throw error if error
+    res.send(files)
+  )

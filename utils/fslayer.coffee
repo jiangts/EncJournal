@@ -46,7 +46,7 @@ class FSLayer
     @getFileInfo(filepath, (stats) ->
       # file exists
       if stats
-        fs.readFile(filepath, 'utf8', (error, data) ->
+        fs.readFile(filepath, 'binary', (error, data) ->
           throw error if error
           # stats.data = data
           callback(null, data)
