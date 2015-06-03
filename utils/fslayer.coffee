@@ -71,9 +71,9 @@ class FSLayer
 
   deleteFile: () ->
 
-  listFiles: (path, callback) ->
-    path = path.dirname path
-    fs.readdir(path, (error, files) ->
+  listFiles: (filepath, callback) ->
+    filepath = @filepath filepath
+    fs.readdir(filepath, (error, files) ->
       callback(error, files)
     )
 

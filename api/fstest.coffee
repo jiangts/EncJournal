@@ -7,11 +7,15 @@ module.exports = (router) ->
 
 testFSLayer = (res) ->
   fsl = new FSLayer "#{__dirname}/../data"
-  fsl.createFile("helloworld.txt", "hello 2")
-  fsl.updateFile("helloworld.txt", "three!!!")
+  fsl.createFile("poop.txt", "pee")
+  # fsl.updateFile("poop.txt", "")
   fsl.readFile("helloworld.txt", (error, data) ->
     throw error if error
     console.log data
+    fsl.listFiles(".", (error, files) ->
+      throw error if error
+      console.log(files)
+    )
     res.send(data)
   )
   
