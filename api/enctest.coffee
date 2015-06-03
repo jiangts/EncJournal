@@ -11,10 +11,3 @@ testEncLayer = (res) ->
   uncrypted = enc.decrypt(crypted, 'testuser')
   console.log uncrypted
   res.json crypted: crypted, uncrypted: uncrypted
-
-  ###
-  enc.listFiles(".", (error, files) ->
-    throw error if error
-    res.send(files)
-  )
-  ###

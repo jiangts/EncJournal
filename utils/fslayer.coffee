@@ -48,9 +48,8 @@ class FSLayer
       if stats
         # for some reason binary is utf8??
         fs.readFile(filepath, 'utf8', (error, data) ->
-          throw error if error
           # stats.data = data
-          callback(null, data)
+          callback(error, data)
         )
       # doesn't exist
       else

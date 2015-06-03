@@ -46,22 +46,15 @@ class EncService
   readEncFile: (dirpath, filename, callback) ->
     @checkValidPasscode()
     @fs.readFile(path.join(dirpath, filename), (error, data) =>
-      throw error if error
+      if error then return callback(error, null, null)
       data = @enc.decrypt(data, @passcode)
-      callback(error, data)
+      filename = @enc.decrypt(filename, @passcode, 'hex')
+      callback(error, filename, data)
     )
 
   updateEncFile: (dirpath, filename, content) ->
     @checkValidPasscode()
     @fs.updateFile(path.join dirpath, filename, content)
 
-# name files, but encrypt them at same time
-
-###
-run file. prompt for passcode.
-if works, let user list files.
-let user choose existing file to be added to encrypted repo.
-let user unencrypt a file into plain text.
-###
 
 module.exports = EncService
