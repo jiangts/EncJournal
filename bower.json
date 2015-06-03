@@ -5,5 +5,12 @@
     "**/.*",
     "node_modules",
     "components"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap-markdown": "~2.9.0",
+    "bootstrap": "~3.3.4",
+    "marked": "~0.3.3",
+    "superagent": "~1.2.0"
+  }
 }

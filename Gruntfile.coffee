@@ -25,6 +25,7 @@ module.exports = (grunt) ->
           "bin/www"
           "index.js"
           "api/**/*.coffee"
+          "utils/**/*.coffee"
         ]
         tasks: [
           "develop"
