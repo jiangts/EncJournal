@@ -1,0 +1,26 @@
+include ../includes/jquery
+include ../includes/bootstrap
+
+doctype html
+head
+  title Journal
+  // Custom CSS
+  link(rel='stylesheet', href='/css/sb-admin.css')
+
+#wrapper
+  // Navigation
+  nav.navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+    // Brand and toggle get grouped for better mobile display
+    .navbar-header
+      block header
+    // Top Menu Items
+    ul.nav.navbar-right.top-nav
+
+    // Sidebar Menu Items - These collapse to the responsive navigation menu on small screens
+    .collapse.navbar-collapse.navbar-ex1-collapse
+      block sidebar
+
+  #page-wrapper.no-pad
+    .container-fluid
+      // Page Heading
+      block content
