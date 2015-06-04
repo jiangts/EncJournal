@@ -5,15 +5,21 @@ prompt = require 'prompt'
 # TODO eventually have a config file
 
 module.exports = ->
-  es = new EncService "#{__dirname}/../data"
+  es = new EncService "#{__dirname}/../data", "unsafe"
 
-  es.createEncFile('.', 'pee.txt', 'testing this', 'testsecret')
-  es.readEncFile('.', 'ed5ffd26a1175f1f3ffe450cbe6afff8c16e.enc', (err, filename, data) ->
-    console.log err if err
-    console.log filename
-    console.log data
-  , 'testsecret')
-  es.listEncFiles('.', (err, data) ->
-    console.log data
-  , 'testsecret')
+  prompt.start()
+  passcodeSchema =
+    properties:
+      passcode:
+        hidden: true
+
+  arg = process.argv[2]
+  if arg is 'encrypt'
+    prompt.get(passcodeSchema, (err, result) ->
+      es.encryptDir('unsafe', result.passcode)
+    )
+  if arg is 'decrypt'
+    prompt.get(passcodeSchema, (err, result) ->
+      es.decryptDir('.', result.passcode)
+    )
 

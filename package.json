@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "async": "^1.2.0",
+    "base32": "0.0.6",
     "coffee-script": "~1.8.0",
     "prompt": "^0.2.14"
   }

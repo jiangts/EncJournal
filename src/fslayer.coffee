@@ -18,65 +18,27 @@ class FSLayer
   filepath: (filename) ->
     return if path.isAbsolute filename then filename else path.join(@rootDir, filename)
 
-  getFileInfo: (filepath, callback) ->
+  fileExists: (filepath) ->
     filepath = @filepath filepath
-    fs.exists(filepath, (exists) ->
-      if exists
-        fs.statSync(filepath, (err, stats) ->
-          throw err if err
-          callback(stats)
-        )
-      else callback(false)
-    )
+    return fs.existsSync(filepath)
 
-  createFile: (filepath, content) ->
+  writeFile: (filepath, content) ->
     filepath = @filepath filepath
-    @getFileInfo(filepath, (stats) ->
-      # file exists
-      if stats
-        # throw new Error("file already exists")
-        console.log 'file already exists'
-      # doesn't exist
-      else
-        fs.writeFileSync(filepath, content, (err) ->
-          throw err if err
-        )
-    )
+    fs.writeFileSync(filepath, content)
 
-  readFile: (filepath, callback) ->
+  readFile: (filepath) ->
     filepath = @filepath filepath
-    @getFileInfo(filepath, (stats) ->
-      # file exists
-      if stats
-        # for some reason binary is utf8??
-        fs.readFileSync(filepath, 'utf8', (err, data) ->
-          callback(err, data)
-        )
-      # doesn't exist
-      else
-        callback(new Error("file does not exist"), null)
-    )
+    if @fileExists filepath
+      return fs.readFileSync(filepath, 'utf8')
+    else
+      console.log new Error "file does not exist"
 
-  updateFile: (filepath, content) ->
+  deleteFile: (filepath) ->
     filepath = @filepath filepath
-    @getFileInfo(filepath, (stats) ->
-      # file exists
-      if stats
-        fs.writeFileSync(filepath, content, (err) ->
-          throw err if err
-        )
-      # doesn't exist
-      else
-        console.log 'file does not exist'
-    )
+    if @fileExists filepath then fs.unlinkSync filepath
 
-  # deleteFile: () ->
-
-  listFiles: (filepath, callback) ->
+  listFiles: (filepath) ->
     filepath = @filepath filepath
-    fs.readdirSync(filepath, (err, files) ->
-      callback(err, files)
-    )
+    return fs.readdirSync(filepath)
 
 module.exports = FSLayer
-
